@@ -1,0 +1,25 @@
+Conventions means:
+* Strict folder structures and naming conventions based on configuration
+* Operations that can be performed over conventions to speed up work
+
+1) folder structures/naming conventions
+  - Ability to create folders automatically based on convention
+    
+    - EX: yaml files that need to be translated into scriptable object data base files are all placed in Assets/Data/Yaml/GamePlay, and the 1st level folders correpond to the name of the SO they need to be translated to. A corresponding folder Assets/Data/So/GamePlay which houses the translated scriptable objects. 
+
+    - EX: Sprite Args SO files are used to combine sprites and meta data used to drive UI elements. Sprites have a naming convention Icon_<Name>@<Type> and are in Assets/Art/Ui/Icons. They automatically collapse into scriptable objects names Icon_<Name> in the Assets/Data/Ui/Icons folder.
+
+  - Ability to scan files in folders for those that do not match naming convention
+  - Ability to generate log, warnings, etc about stuff that isn't named correctly
+
+
+
+First Steps:
+
+If I take ex1, I want to use folder names as a key for scriptable object manipulaion with a corresponding folder somewhere else. 
+
+To do this I need to be able to run a ScriptableObject sync operation.
+
+This operation should operate over a target path and distination path 
+
+
