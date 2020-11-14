@@ -20,6 +20,12 @@ namespace HexUN.Convention {
                 yaml = de.Deserialize<ConventionYaml>(sr);
             }
 
+            foreach(ConventionYaml.FolderOperation op in yaml.FolderOps)
+            {
+                AFolderOperation operation =  UTEFolderOperation.GetOperation(op.FolderOp);
+                operation.Operate(yaml.Folders[op.Target], yaml.Folders[op.Destination], op.FileOp);
+            }
+
 
 
 

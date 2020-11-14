@@ -1,0 +1,20 @@
+{
+    "name": "HexUN.Convention.Editor",
+    "references": [
+        "GUID:b3f49edfedc855a48aa1a9e5d3cba438",
+        "GUID:f5eab7ae485a28e4f9fdd568c21c4a83",
+        "GUID:07b4aa88c991c67489d5b04b86fa067c",
+        "GUID:4f887fb3065c6c94ab66321ab5907295",
+        "GUID:04708da3192b73d4895378618b177d6d",
+        "GUID:28580dfbf6c34ba4e8834c5a859e6550"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

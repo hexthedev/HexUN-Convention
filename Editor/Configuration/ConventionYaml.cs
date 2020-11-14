@@ -10,16 +10,14 @@ namespace HexUN.Convention
     {
         public Dictionary<string, string> Folders;
         public Dictionary<string, string> Names;
-        public List<OperationArgs> Operations;
+        public List<FolderOperation> FolderOps;
         
-        public class OperationArgs
+        public class FolderOperation
         {
             public string Target;
             public string Destination;
-            public string Operation;
-            public ECrawlMode CrawlMode;
-            public EMirrorMode MirrorMode;
-            public EKeyMode KeyMode;
+            public EFolderOperation FolderOp;
+            public EFileOperation FileOp;
         }
     }
 }
