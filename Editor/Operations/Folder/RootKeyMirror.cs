@@ -24,7 +24,8 @@ namespace HexUN.Convention
             foreach (DirectoryInfo child in info.GetDirectories())
             {
                 string key = child.Name;
-                logs.AddRange(SingleDepthOperation(child, destination + child.Name, op, key));
+                PathString operationDest = destination + child.Name;
+                logs.AddRange(SingleDepthOperation(child, operationDest, op, key));
             }
 
             OperationLog[] SingleDepthOperation(DirectoryInfo folder, PathString dest, AFileOperation innerOp, string key)
@@ -37,7 +38,14 @@ namespace HexUN.Convention
                     innerLogs.AddRange(SingleDepthOperation(i, dest + i.Name, innerOp, key));
 
                 foreach (FileInfo i in folder.GetFiles())
-                    innerLogs.AddRange(innerOp.Operate(i.FullName, dest + i.Name, key));
+                {
+                    PathString targ = i.FullName;
+                    if (targ.Extension.Contains("meta")) continue;
+
+                    PathString child = dest + i.Name;
+                    innerLogs.Add(Info($"Performing {operation} with key:{key} on target {targ} to destination {child.RemoveAtEnd()}"));
+                    innerLogs.AddRange(innerOp.Operate(targ, dest + i.Name, key));
+                }
 
                 return innerLogs.ToArray();
             }
@@ -51,9 +59,19 @@ namespace HexUN.Convention
                 new OperationLog()
                 {
                     Name = cOperationName,
-                    Category = EOperationLogCategory.Error,
+                    Category = EOperationLogCategory.ERRO,
                     Description = description
                 }
+            };
+        }
+
+        private OperationLog Info(string description)
+        {
+            return new OperationLog()
+            {
+                Name = cOperationName,
+                Category = EOperationLogCategory.INFO,
+                Description = description
             };
         }
     }

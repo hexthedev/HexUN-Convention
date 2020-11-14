@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace HexUN.Convention { 
+﻿namespace HexUN.Convention { 
     public enum EOperationLogCategory
     {
-        Error = 0,
-        Success = 1
+        ERRO = 0,
+        SUCC = 1,
+        WARN = 2,
+        INFO = 3
     }
 }
