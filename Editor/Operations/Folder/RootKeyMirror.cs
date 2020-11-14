@@ -1,6 +1,7 @@
 ﻿using Hex.Paths;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace HexUN.Convention
@@ -14,6 +15,8 @@ namespace HexUN.Convention
     {
         private const string cOperationName = nameof(RootKeyMirror);
 
+        private const string cBarTile = "Performing RootKeyMirror Folder Operation";
+
         public override OperationLog[] Operate(PathString target, PathString destination, EFileOperation operation)
         {
             List<OperationLog> logs = new List<OperationLog>();
@@ -21,12 +24,21 @@ namespace HexUN.Convention
 
             if (!target.TryAsDirectoryInfo(out DirectoryInfo info)) return Error("Failed to get target as directory");
 
-            foreach (DirectoryInfo child in info.GetDirectories())
+            DirectoryInfo[] dirs = info.GetDirectories();
+
+            for(int i = 0; i<dirs.Length; i++)
             {
+                DirectoryInfo child = dirs[i];
                 string key = child.Name;
                 PathString operationDest = destination + child.Name;
+
+                EditorUtility.DisplayProgressBar(cBarTile, $"target:{child.FullName} - dest:{operationDest}", (float)i/dirs.Length);
                 logs.AddRange(SingleDepthOperation(child, operationDest, op, key));
             }
+
+            EditorUtility.DisplayProgressBar(cBarTile, $"Refreshing Asset Database", 1);
+            AssetDatabase.Refresh();
+            EditorUtility.ClearProgressBar();
 
             OperationLog[] SingleDepthOperation(DirectoryInfo folder, PathString dest, AFileOperation innerOp, string key)
             {
